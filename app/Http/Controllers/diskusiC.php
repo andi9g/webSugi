@@ -70,12 +70,11 @@ class diskusiC extends Controller
         $cek = topikdiskusiM::where("idtopikdiskusi", $idtopikdiskusi);
         if($cek->count() == 1) {
             $cek = $cek->first();
-            if($cek->user->posisi == "user") {
+            if(Auth::user()->posisi == "user") {
                 $cek = topikdiskusiM::where("iduser", $iduser)
                 ->where("idtopikdiskusi", $idtopikdiskusi)->count();
                 if($cek != 1) {
                     return redirect('diskusi')->with("error", "maaf, tidak ada diskusi");
-
                 }
             }
             $tambah = new diskusiM;
