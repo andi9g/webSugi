@@ -25,5 +25,8 @@
         <p>{{ $item }}</p>
         
     @endforeach
+
+
+    <a href="{{ url('/beranda', []) }}" class="">KUNJUNGI HALAMAN</a>
 </body>
 </html>
