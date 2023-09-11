@@ -61,12 +61,12 @@ class produkC extends Controller
             $hargaDiskon = $p->harga - ($p->harga * ($p->diskon / 100));
             $notif = $notif." Nama Produk : ".ucwords($p->namaproduk)."<br>";
             $notif = $notif." Diskon : ".$p->diskon."%<br>";
-            $notif = $notif." Harga Produk :  <strike>Rp".number_format($p->harga,0,",",".")."</strike> >".number_format($hargaDiskon,0,",",".")."<br>";
+            $notif = $notif." Harga Produk :  <strike>Rp".number_format($p->harga,0,",",".")."</strike> >".number_format($hargaDiskon,0,",",".")."<br><br>";
 
             $content = $content." Nama Produk : ".ucwords($p->namaproduk)."\n";
             $content = $content." Diskon : ".$p->diskon."%\n";
             $content = $content." Harga Produk : Rp".number_format($p->harga,0,",",".")."\n";
-            $content = $content." Harga Diskon : Rp".number_format($hargaDiskon,0,",",".")." LANJUT";
+            $content = $content." Harga Diskon : Rp".number_format($hargaDiskon,0,",",".")." ---";
         }
         
         $pesan = $request->pesan;

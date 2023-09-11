@@ -16,9 +16,9 @@
         <div class="card-body">
           <div class="row my-0 py-0">
             <div class="col-md-6 my-0 py-0">
-              <h5 class="my-0 py-0">
-              {{ $item->invoice }}
-            </h5></div>
+              <h4 class="my-0 py-0">
+                <b>{{ $item->invoice }}</b>
+              </h4></div>
             <div class="col-md-6 my-0 py-0 text-right">
               <p class="py-0 my-0">{{ \Carbon\Carbon::parse($item->created_at)->isoFormat("dddd, DD MMMM Y") }} {{ date("H:i", strtotime($item->created_at)) }}</p>
             </div>

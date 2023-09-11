@@ -18,7 +18,7 @@
         
         @if ($lanjut !== false)
             @php
-                str_replace("LANJUT", "", $item);
+                str_replace("---", "", $item);
             @endphp
             <br>
         @endif
