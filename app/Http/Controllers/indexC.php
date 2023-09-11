@@ -221,6 +221,7 @@ class indexC extends Controller
             $sisa = $point + ($total * 0.03);
         }
 
+        dd($total);
         if (Session::get('point')==true){
             $transaction_details = array(
                 'order_id'    => time(),
