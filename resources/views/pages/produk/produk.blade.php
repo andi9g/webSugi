@@ -67,7 +67,12 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-8">
-                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#tambahproduk">Tambah Produk</button>
+                                <button class="btn btn-primary d-inline" type="button" data-toggle="modal" data-target="#tambahproduk">Tambah Produk</button>
+
+                                <form action="{{ route('sebarkan.diskon', []) }}" method="post" class="d-inline">
+                                    @csrf
+                                    <button type="submit" onclick="return confirm('Lanjutkan Proses?')" class="btn btn-secondary">Sebarkan Diskon</button>
+                                </form>
                             </div>
                             <div class="col-md-4">
                                 <form action="{{ url()->current() }}" method="get">

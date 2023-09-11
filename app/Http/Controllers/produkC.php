@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\produkM;
 use App\Models\kategoriM;
+use App\Models\notifikasiM;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SampleMail;
 
 class produkC extends Controller
 {
@@ -39,6 +43,58 @@ class produkC extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function sebarkandiskon()
+    {
+        $users = User::select("email")->get();
+        $recipients = $users->pluck('email')->toArray();
+        // dd($recipients);
+        
+
+        $produk = produkM::where("diskon", ">", 0)->count();
+        if($produk == 0) {
+            return redirect()->back()->with("toast_warning","maaf tidak ada diskon")->withInput();
+        }
+
+        $produk = produkM::where("diskon", ">", 0)->get();
+
+        $content = "";
+        $notif = "";
+        foreach ($produk as $p) {
+            $hargaDiskon = $p->harga - ($p->harga * ($p->diskon / 100));
+            $notif = $notif." Nama Produk : ".ucwords($p->namaproduk)."<br>";
+            $notif = $notif." Diskon : ".$p->diskon."%<br>";
+            $notif = $notif." Harga Produk :  <strike>Rp".number_format($p->harga,0,",",".")."</strike> >".number_format($hargaDiskon,0,",",".")."<br>";
+
+            $content = $content." Nama Produk : ".ucwords($p->namaproduk)."\n";
+            $content = $content." Diskon : ".$p->diskon."%\n";
+            $content = $content." Harga Produk : Rp".number_format($p->harga,0,",",".")."\n";
+            $content = $content." Harga Diskon : Rp".number_format($hargaDiskon,0,",",".")." LANJUT";
+        }
+        
+        $user = User::select("id")->get();
+        foreach ($user as $u) {
+            $iduser = $u->id;
+            notifikasiM::create([
+                'iduser' => $iduser,
+                'invoice' => "DISKON, AYO BURUAN SEBELUM DITUTUP",
+                'status' => $notif,
+            ]);
+        }
+        
+        
+
+        $mailData = [
+            'title' => 'Diskon',
+            'content' => $content,
+        ];
+        
+        Mail::to($recipients)
+            ->send(new SampleMail($mailData));
+
+            return redirect()->back()->with("success", "pesan telah dikirimkan")->withInput();
+    }
+
+
     public function create()
     {
         //

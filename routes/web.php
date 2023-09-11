@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource("produk", "produkC");
         Route::resource('dokter', "dokterC");
         Route::post("diskon/{idproduk}/produk", "produkC@diskon")->name("ubahdiskon");
-    
+        Route::post("sebarkan/diskon", "produkC@sebarkandiskon")->name("sebarkan.diskon");
        
         
         Route::resource("transaksi", "invoiceC");
