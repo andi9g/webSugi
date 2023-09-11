@@ -25,7 +25,13 @@
           </div>
           
           <h5><?php echo $item->status ?></h5>
-          <a href="{{ route('lihat.invoiceku', [$item->invoice]) }}" class="btn btn-success">Lihat Data Pembelian</a>
+          @php
+              $cek = strpos($item->invoice, "INV");
+          @endphp
+          @if ($cek !== false)
+            <a href="{{ route('lihat.invoiceku', [$item->invoice]) }}" class="btn btn-success">Lihat Data Pembelian</a>
+              
+          @endif
         </div>
       </div>
         
