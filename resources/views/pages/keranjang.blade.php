@@ -59,9 +59,20 @@
                   </form>
                 </td>
                 <td>
+                  
+
                   {{ $item->produk->stok - $item->jumlah }}
                 </td>
-                <td>Rp{{ number_format(($item->jumlah * $item->produk->harga), 0,",",".") }}</td>
+                <td>
+                  @php
+                      if($item->produk->diskon >0 ) {
+                        $diskon = $item->produk->harga - ($item->produk->harga * ($item->produk->diskon / 100));
+                      }else {
+                        $diskon = $item->produk->harga;
+
+                      }
+                  @endphp
+                  Rp{{ number_format(($item->jumlah * $diskon), 0,",",".") }}</td>
                 <td width="1px">
                   <form action="{{ route('keranjang.destroy.satuan', [$item->idkeranjang]) }}" method="post" class="d-inline">
                     @csrf
@@ -71,8 +82,9 @@
                   </form>
                 </td>
                 @php
-                    if ($item->produk->diskon >0 ) {
-                      $diskon = $item->produk->harga - ($item->produk->harga * ($item->produk->diskon / 100))
+                  
+                    if($item->produk->diskon >0 ) {
+                      $diskon = $item->produk->harga - ($item->produk->harga * ($item->produk->diskon / 100));
                       $total = $total + ($item->jumlah * $diskon);
                     }else {
                       $total = $total + ($item->jumlah * $item->produk->harga);

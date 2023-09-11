@@ -150,14 +150,28 @@ class indexC extends Controller
         $item = [];
         $total = 0;
         foreach ($keranjang as $k) {
-            $item[] = [
-                "id" => $k->produk->idproduk,
-                "price" => $k->produk->harga,
-                "quantity" => $k->jumlah,
-                "name" => $k->produk->namaproduk,
-            ];
+            if ($k->produk->diskon > 0) {
+                $diskon = $k->produk->harga - ($k->produk->harga * ($k->produk->diskon / 100));
+                $item[] = [
+                    "id" => $k->produk->idproduk,
+                    "price" => $k->produk->harga,
+                    "quantity" => $k->jumlah,
+                    "name" => $k->produk->namaproduk,
+                ];
+                
+                
+            }else {
+                $item[] = [
+                    "id" => $k->produk->idproduk,
+                    "price" => $k->produk->harga,
+                    "quantity" => $k->jumlah,
+                    "name" => $k->produk->namaproduk,
+                ];
+                $diskon = $k->produk->harga;
 
-            $total = $total + ($k->jumlah * $k->produk->harga);
+            }
+
+            $total = $total + ($k->jumlah * $diskon);
             detailinvoiceM::create([
                 "invoice" => $invoice,
                 "idproduk" => $k->produk->idproduk,
