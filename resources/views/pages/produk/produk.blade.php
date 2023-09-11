@@ -60,6 +60,36 @@
         </div>
     </div>
 
+    <div id="sebarkandiskon" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="my-modal-title">Sebarkan Diskon</h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('sebarkan.diskon', []) }}" method="post" class="d-inline">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="pesan">Pesan Diskon</label>
+                            <input id="pesan" class="form-control" type="text" name="pesan">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" onclick="return confirm('Lanjutkan Proses?')" class="btn btn-secondary">Sebarkan Diskon</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+        
+    
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -69,10 +99,9 @@
                             <div class="col-md-8">
                                 <button class="btn btn-primary d-inline" type="button" data-toggle="modal" data-target="#tambahproduk">Tambah Produk</button>
 
-                                <form action="{{ route('sebarkan.diskon', []) }}" method="post" class="d-inline">
-                                    @csrf
-                                    <button type="submit" onclick="return confirm('Lanjutkan Proses?')" class="btn btn-secondary">Sebarkan Diskon</button>
-                                </form>
+                                <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#sebarkandiskon">Sebarkan Diskon</button>
+
+                                
                             </div>
                             <div class="col-md-4">
                                 <form action="{{ url()->current() }}" method="get">

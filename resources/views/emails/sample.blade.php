@@ -9,19 +9,20 @@
         $content = explode("\n", $mailData['content']);
     @endphp
     @foreach ($content as $item)
-        <p>{{ $item }}</p>
+        
 
         @php
             $lanjut = strpos($item, "LANJUT");
         @endphp
         
         
-        @if ($lanjut == true)
+        @if ($lanjut !== false)
             @php
                 str_replace("LANJUT", "", $item);
             @endphp
             <br>
         @endif
+        <p>{{ $item }}</p>
         
     @endforeach
 </body>

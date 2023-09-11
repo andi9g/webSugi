@@ -43,12 +43,10 @@ class produkC extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sebarkandiskon()
+    public function sebarkandiskon(Request $request)
     {
         $users = User::select("email")->get();
         $recipients = $users->pluck('email')->toArray();
-        // dd($recipients);
-        
 
         $produk = produkM::where("diskon", ">", 0)->count();
         if($produk == 0) {
@@ -71,12 +69,14 @@ class produkC extends Controller
             $content = $content." Harga Diskon : Rp".number_format($hargaDiskon,0,",",".")." LANJUT";
         }
         
+        $pesan = $request->pesan;
+
         $user = User::select("id")->get();
         foreach ($user as $u) {
             $iduser = $u->id;
             notifikasiM::create([
                 'iduser' => $iduser,
-                'invoice' => "DISKON, AYO BURUAN SEBELUM DITUTUP",
+                'invoice' => $pesan,
                 'status' => $notif,
             ]);
         }
@@ -84,7 +84,7 @@ class produkC extends Controller
         
 
         $mailData = [
-            'title' => 'Diskon',
+            'title' => $pesan,
             'content' => $content,
         ];
         
