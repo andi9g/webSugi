@@ -24,7 +24,7 @@
             </div>
           </div>
           
-          <h5>{{ $item->status }}</h5>
+          <h5><?php echo $item->status ?></h5>
           <a href="{{ route('lihat.invoiceku', [$item->invoice]) }}" class="btn btn-success">Lihat Data Pembelian</a>
         </div>
       </div>
