@@ -29,6 +29,7 @@
                 <div class="card-body">
                   <small class="badge badge-secondary">{{ $item->kategori->namakategori }}</small>
                     <h4><a href="{{ route('detail.produk', [$item->idproduk]) }}" class="link pl-0 ml-0" style="text-decoration: none">{{ $item->namaproduk }}</a></h4>
+                    @if ($item->diskon > 0)
                     <h5>
                     <strike>Rp{{ number_format($item->harga, 0,",",".") }}</strike>
                     @php
@@ -38,6 +39,10 @@
                     
                     Rp{{ number_format($hargasetelahdiskon, 0, ",",".") }}
                     </h5>
+                        
+                    @else 
+                      <h5>Rp{{ number_format($item->harga, 0,",",".") }}</h5>
+                    @endif
                     
                     
                   <p class="card-text">{{ $item->deskripsi1 }}</p>
