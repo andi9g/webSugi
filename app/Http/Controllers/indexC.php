@@ -154,7 +154,7 @@ class indexC extends Controller
                 $diskon = $k->produk->harga - ($k->produk->harga * ($k->produk->diskon / 100));
                 $item[] = [
                     "id" => $k->produk->idproduk,
-                    "price" => $k->produk->harga,
+                    "price" => $diskon,
                     "quantity" => $k->jumlah,
                     "name" => $k->produk->namaproduk,
                 ];
