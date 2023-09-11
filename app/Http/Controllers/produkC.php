@@ -25,6 +25,15 @@ class produkC extends Controller
         ]);
     }
 
+    public function diskon(Request $request, $idproduk)
+    {
+        $data = $request->all();
+        $produk = produkM::where("idproduk", $idproduk)->first();
+        $produk->update($data);
+
+        return redirect()->back()->with("toast_success","berhasil menambahkan diskon")->withInput();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -79,10 +88,10 @@ class produkC extends Controller
      * @param  \App\Models\produkM  $produkM
      * @return \Illuminate\Http\Response
      */
-    public function show(produkM $produkM)
-    {
-        //
-    }
+    // public function show(produkM $produkM)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.

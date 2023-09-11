@@ -22,6 +22,7 @@ class Petshop extends Migration
             $table->string("deskripsi1");
             $table->longText("deskripsi2");
             $table->string("gambar");
+            $table->double("diskon")->default(0);
             $table->timestamps();
         });
 

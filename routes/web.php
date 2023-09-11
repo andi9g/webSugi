@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/home', "homeC@home")->name('home');
         Route::resource("produk", "produkC");
         Route::resource('dokter', "dokterC");
+        Route::post("diskon/{idproduk}/produk", "produkC@diskon")->name("ubahdiskon");
     
        
         
