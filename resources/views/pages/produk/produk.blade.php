@@ -89,7 +89,7 @@
                                 <th>Kategori</th>
                                 <th>Gambar</th>
                                 <th>Harga</th>
-                                <th>Diskon</th>
+                                <th>Diskon(%)</th>
                                 <th>Deskripsi</th>
                                 <th>Aksi</th>
                             </thead>
@@ -97,7 +97,7 @@
                             <tbody>
                                 @foreach ($produk as $item)
                                     <tr>
-                                        <td width="1px">{{ $loop->iteration + $produk->firstItem() - 1 }}</td>
+                                        <td width="1px">{{ $loop->iteration - $produk->firstItem() + 1 }}</td>
                                         <td>{{ $item->namaproduk }}</td>
                                         <td>{{ $item->kategori->namakategori }}</td>
                                         <td>
@@ -106,12 +106,22 @@
                                             </button>
                                         </td>
                                         <td>
-                                            Rp{{ number_format($item->harga, 0, ",",".") }}
+                                            @if ($item->diskon > 0)
+                                            <strike>Rp{{ number_format($item->harga, 0, ",",".") }}</strike>
+                                            @php
+                                                $hargasetelahdiskon = $item->harga - ($item->harga * ($item->diskon/100));
+
+                                            @endphp
+                                            
+                                                Rp{{ number_format($hargasetelahdiskon, 0, ",",".") }}
+                                            
+                                                
+                                            @endif
                                         </td>
                                         <td width="5px">
                                             <form action="{{ route('ubahdiskon', [$item->idproduk]) }}" method="post">
                                                 @csrf
-                                                <input type="number" onchange="submit()" value="{{ $item->diskon }}" class="form-control-sm form-control d-inline" style="width: 70px !important">
+                                                <input type="number" onchange="submit()" value="{{ $item->diskon }}" class="form-control-sm form-control d-inline" name="diskon" style="width: 70px !important">
                                             </form>
                                         </td>
                                         <td>
