@@ -71,7 +71,13 @@
                   </form>
                 </td>
                 @php
-                    $total = $total + ($item->jumlah * $item->produk->harga);
+                    if ($item->produk->diskon >0 ) {
+                      $diskon = $item->produk->harga - ($item->produk->harga * ($item->produk->diskon / 100))
+                      $total = $total + ($item->jumlah * $diskon);
+                    }else {
+                      $total = $total + ($item->jumlah * $item->produk->harga);
+
+                    }
                 @endphp
               </tr>
           @endforeach

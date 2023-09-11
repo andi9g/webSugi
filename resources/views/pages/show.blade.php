@@ -15,7 +15,23 @@
           <p><b>{{ $produk->deskripsi1 }}</b></p>
           <p>{{ $produk->deskripsi2 }}</p>
           <h5>Stok {{ $produk->stok }}</h5>
-          <h3>Rp{{ number_format($produk->harga, 0, ",",".") }}</h3>
+          @php
+              $diskon = $produk->harga - ($produk->harga * ($produk->diskon / 100));
+          @endphp
+          @if ($produk->diskon > 0)
+          <h3>
+            <strike>
+              Rp{{ number_format($produk->harga, 0, ",",".") }}
+            </strike>
+            Rp{{ number_format($diskon, 0, ",",".") }}
+            
+          </h3>
+          
+          @else   
+
+          Rp{{ number_format($produk->harga, 0, ",",".") }}
+              
+          @endif
           <div class="row">
             <div class="col-md-6">
               <form action="{{ route('tambah.keranjang', [$produk->idproduk]) }}" method="post" class="d-inline">
