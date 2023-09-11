@@ -111,11 +111,11 @@
                                             @php
                                                 $hargasetelahdiskon = $item->harga - ($item->harga * ($item->diskon/100));
 
-                                            @endphp
-                                            
+                                            @endphp                                            
                                                 Rp{{ number_format($hargasetelahdiskon, 0, ",",".") }}
                                             
-                                                
+                                            @else   
+                                            Rp{{ number_format($item->harga, 0, ",",".") }}
                                             @endif
                                         </td>
                                         <td width="5px">
@@ -142,6 +142,9 @@
                                             <button class="badge py-1 border-0 badge-primary" type="button" data-toggle="modal" data-target="#ubah{{ $item->idproduk }}">
                                                 <i class="fa fa-edit"></i> Ubah
                                             </button>
+
+                                            {{-- form --}}
+
                                         </td>
                                     </tr>
 
